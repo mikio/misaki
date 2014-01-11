@@ -13,6 +13,7 @@
 ;; ## Default Value
 
 (def PORT     "Default dev server port." 8080)
+(def REPL-PORT "Default dev nrepl server port." 42042)
 (def LANGUAGE "Default language."        "en")
 (def COMPILER "Default compiler."        "default")
 (def POST_FILENAME_REGEXP
@@ -102,6 +103,7 @@
                         (path template-dir post-dir))
       :post-sort-type (:post-sort-type config :date-desc)
       :port           (:port config PORT)
+      :repl-port           (:repl-port config REPL-PORT)
       :lang           (:lang config LANGUAGE)
       :site           (:site config {})
       :index-name     (:index-name config "")

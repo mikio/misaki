@@ -18,6 +18,7 @@
  :port 8080
 
  ;; embeded repl-server port
+ ;;   default value: 42042
  :repl-port 42042
 
  ;; site language
