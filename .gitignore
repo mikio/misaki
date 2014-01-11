@@ -7,6 +7,8 @@
 /.lein-failures
 /checkouts
 /.lein-deps-sum
+misaki/src/misaki/
+/.nrepl-port
 /blog
 /test/public
 /samples/*/public/201*

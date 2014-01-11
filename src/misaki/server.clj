@@ -13,7 +13,9 @@
     [watchtower.core      :refer :all]
     [compojure.core       :refer [routes]]
     [compojure.route      :refer [files]]
-    [ring.adapter.jetty   :refer [run-jetty]]))
+    [ring.adapter.jetty   :refer [run-jetty]]
+    [clojure.tools.nrepl.server :refer [start-server stop-server]]
+    ))
 
 ; =elapsing
 (defmacro elapsing
@@ -87,18 +89,21 @@
 (defn -main [& [dir :as args]]
   (binding [*base-dir* (normalize-path dir)]
     (with-config
-      ; compile all templates at first
-      (do-all-compile)
+      (let [repl-port (:repl-port *config*)
+            repl-server (start-server :port repl-port)]
+         ;; compile all templates at first
+         (do-all-compile)
 
-      ; compile all only if '--compile' option is specified
-      (when-not (contains? (set args) "--compile")
-        (start-watcher (:template-dir *config*))
-        (println " * starting server: "
-                 (cyan (str "http://localhost:"
-                            (:port *config*)
-                            (:url-base *config*))))
-        (run-jetty
-          (routes (files (:url-base *config*)
-                         {:root (:public-dir *config*)}))
-          {:port (:port *config*)})))))
+         ;; compile all only if '--compile' option is specified
+         (when-not (contains? (set args) "--compile")
+           (start-watcher (:template-dir *config*))
+           (println " * starting server: "
+                    (cyan (str "http://localhost:"
+                               (:port *config*)
+                               (:url-base *config*))))
+           (println " * starting nrepl server on port " (cyan repl-port))
+           (run-jetty
+            (routes (files (:url-base *config*)
+                           {:root (:public-dir *config*)}))
+            {:port (:port *config*)}))))))
 

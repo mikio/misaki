@@ -12,8 +12,11 @@
                  [de.ubercode.clostache/clostache "1.3.1"]
                  [cuma "0.0.4"]
                  [clj-gntp "0.0.1"]
-                 ; cljs compiler
-                 [org.clojure/clojurescript "0.0-1586"]]
+                                        ; cljs compiler
+                 [org.clojure/clojurescript "0.0-1586"]
+                 [misaki-markdown "0.0.2-beta"]
+                 [org.clojure/tools.nrepl "0.2.3"]
+                 ]
 
   :plugins [[codox "0.6.4"]
             [lein-cloverage "1.0.2"]
